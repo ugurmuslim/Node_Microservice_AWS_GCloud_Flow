@@ -1,0 +1,27 @@
+steps:
+  #Resevations
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'europe-west3-docker.pkg.dev/test-node-440908/reservations/production',
+            '-f', 'apps/reservations/Dockerfile','.' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push', 'europe-west3-docker.pkg.dev/test-node-440908/reservations/production' ]
+  #Auth
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'europe-west3-docker.pkg.dev/test-node-440908/auth/production',
+            '-f', 'apps/auth/Dockerfile','.' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push', 'europe-west3-docker.pkg.dev/test-node-440908/auth/production' ]
+
+  #Notifications
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'europe-west3-docker.pkg.dev/test-node-440908/notifications/production',
+            '-f', 'apps/notifications/Dockerfile','.' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push', 'europe-west3-docker.pkg.dev/test-node-440908/notifications/production' ]
+
+    #Payments
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'europe-west3-docker.pkg.dev/test-node-440908/payments/production',
+            '-f', 'apps/payments/Dockerfile','.' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push', 'europe-west3-docker.pkg.dev/test-node-440908/payments/production' ]
