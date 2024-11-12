@@ -15,7 +15,7 @@ spec:
         app: payments
     spec:
       containers:
-      - image: europe-west3-docker.pkg.dev/test-node-440908/payments/production
+      - image: 486066960729.dkr.ecr.eu-central-1.amazonaws.com/payments:latest
         name: payments
         env:
           - name: PORT
