@@ -1,0 +1,52 @@
+services:
+  e2e:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./specs:/usr/src/app/specs
+    command: npm run test
+    depends_on:
+      - reservations
+      - auth
+      - payments
+      - notifications
+      - mongo
+  reservations:
+    container_name: reservations
+    image: 486066960729.dkr.ecr.eu-central-1.amazonaws.com/reservations:latest
+    env_file:
+      - ../apps/reservations/.env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+  auth:
+      image: 486066960729.dkr.ecr.eu-central-1.amazonaws.com/auth:latest
+      container_name: auth
+      env_file:
+        - ../apps/auth/.env
+      ports:
+        - "3001:3001"
+      depends_on:
+        - mongo
+  payments:
+      image: 486066960729.dkr.ecr.eu-central-1.amazonaws.com/payments:latest
+      env_file:
+        - ../apps/payments/.env
+      ports:
+        - '3003:3003'
+  notifications:
+      image: 486066960729.dkr.ecr.eu-central-1.amazonaws.com/notifications:latest
+      env_file:
+        - ../apps/notifications/.env
+      ports:
+        - '3004:3004'
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"  # Expose MongoDB port
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root  # Set root username
+      MONGO_INITDB_ROOT_PASSWORD: example  # Set root password

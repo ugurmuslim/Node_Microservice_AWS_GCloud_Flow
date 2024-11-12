@@ -20,5 +20,7 @@ export class AuthService {
     expires.setSeconds(expires.getSeconds() + expiresIn);
     const token = this.jwtService.sign(payload);
     response.cookie('Authentication', token, { httpOnly: true, expires: expires });
+
+    return token;
   }
 }
