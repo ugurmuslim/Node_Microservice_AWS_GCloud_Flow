@@ -3,13 +3,13 @@ kind: Service
 metadata:
   labels:
     app: auth
-  name: auth-http
+  name: auth-tcp
 spec:
   ports:
-  - name: "http"
-    port: 3003
+  - name: "tcp"
+    port: 3002
     protocol: TCP
-    targetPort: 3003
+    targetPort: 3002
   selector:
     app: auth
-  type: NodePort
+  type: ClusterIP
