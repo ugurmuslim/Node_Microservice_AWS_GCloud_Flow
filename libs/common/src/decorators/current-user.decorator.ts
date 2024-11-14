@@ -1,4 +1,4 @@
-import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+ import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { UsersDocument } from '@app/common';
 
 const getCurrentUserByContext = (context: ExecutionContext): UsersDocument => {

@@ -5,7 +5,7 @@ services:
       dockerfile: ./Dockerfile
     volumes:
       - ./specs:/usr/src/app/specs
-    command: npm run test
+    command: pnpm run test
     depends_on:
       - reservations
       - auth
