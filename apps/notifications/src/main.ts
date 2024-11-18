@@ -4,16 +4,21 @@ import { Transport } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 import { Logger } from 'nestjs-pino';
 import * as cookieParser from 'cookie-parser';
+import { NOTIFICATIONS_PACKAGE_NAME, PAYMENTS_PACKAGE_NAME } from '@app/common';
+import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create(NotificationsModule);
   const configService = app.get(ConfigService);
   app.connectMicroservice({
-    transport: Transport.TCP,
+    transport: Transport.GRPC,
     options: {
-      host: '0.0.0.0',
-      port: configService.get('PORT'),
+      protoPath: join(__dirname, '../../../proto/notifications.proto'),
+      package: NOTIFICATIONS_PACKAGE_NAME,
+      url: configService.getOrThrow('NOTIFICATIONS_GRPC_URL'),
+
     }});
+
   app.useLogger(app.get(Logger));
   app.use(cookieParser());
   await app.startAllMicroservices();

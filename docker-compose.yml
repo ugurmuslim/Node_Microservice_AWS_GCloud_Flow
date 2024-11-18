@@ -14,8 +14,6 @@ services:
       - "9229:9229"
     volumes:
       - .:/usr/src/app
-    networks:
-        - backend
   auth:
     build:
       context: .
@@ -29,8 +27,6 @@ services:
       - "9230:9229"
     volumes:
       - .:/usr/src/app
-    networks:
-      - backend
   payments:
     build:
       context: .
@@ -43,8 +39,6 @@ services:
       - .:/usr/src/app
     ports:
       - "9231:9229"
-    networks:
-      - backend
   notifications:
     build:
       context: .
@@ -57,8 +51,6 @@ services:
       - .:/usr/src/app
     ports:
       - "9232:9229"
-    networks:
-      - backend
   mongo:
     image: mongo:latest
     container_name: mongodb
@@ -69,12 +61,6 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example  # Set root password
     volumes:
       - mongo_data:/data/db  # Persist data
-    networks:
-      - backend
-  rabbitmq:
-    image: rabbitmq
-    ports:
-      - "5672:5672"
 volumes:
   mongo_data:
 
